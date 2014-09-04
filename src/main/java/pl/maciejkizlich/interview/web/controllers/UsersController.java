@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import pl.maciejkizlich.interview.persistence.dao.UserRepository;
 import pl.maciejkizlich.interview.persistence.model.BookFavorite;
 import pl.maciejkizlich.interview.persistence.model.BookFeedback;
 import pl.maciejkizlich.interview.persistence.model.User;
 import pl.maciejkizlich.interview.persistence.model.UsersList;
-import pl.maciejkizlich.interview.security.EpamUserDetails;
+import pl.maciejkizlich.interview.security.UserPrincipal;
 import pl.maciejkizlich.interview.service.BookService;
 import pl.maciejkizlich.interview.service.UserService;
 
@@ -54,7 +53,7 @@ public class UsersController {
     @RequestMapping(value = "/myProfile", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_USER')")
     public String myProfile(ModelMap model) {
-        final long userId = EpamUserDetails.getLoggedUserId();
+        final long userId = UserPrincipal.getLoggedUserId();
         prepareProfile(userId, model);
         return "user/userDetails";
     }

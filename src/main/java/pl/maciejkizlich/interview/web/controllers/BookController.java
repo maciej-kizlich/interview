@@ -21,7 +21,7 @@ import pl.maciejkizlich.interview.persistence.model.BookOrder;
 import pl.maciejkizlich.interview.persistence.model.BookPopularity;
 import pl.maciejkizlich.interview.persistence.model.BookSearch;
 import pl.maciejkizlich.interview.persistence.model.Books;
-import pl.maciejkizlich.interview.security.EpamUserDetails;
+import pl.maciejkizlich.interview.security.UserPrincipal;
 import pl.maciejkizlich.interview.service.BookService;
 
 @Controller
@@ -33,7 +33,7 @@ public class BookController {
 
     @RequestMapping(value = "/get/{bookId}", method = RequestMethod.GET)
     public String showBookDetails(@PathVariable(value = "bookId") long bookId, ModelMap model) {
-        final long userId = EpamUserDetails.getLoggedUserId();
+        final long userId = UserPrincipal.getLoggedUserId();
         prepareBookDetail(userId, bookId, model);
         return "books/bookDetails";
     }
@@ -104,7 +104,7 @@ public class BookController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public String reserveBook(@RequestParam long bookId, ModelMap model) {
 
-        long callerId = EpamUserDetails.getLoggedUserId();
+        long callerId = UserPrincipal.getLoggedUserId();
         BookOrder bookOrder = bookService.reserveBook(bookId, callerId);
         model.put("book", bookOrder.getBook());
 
@@ -125,7 +125,7 @@ public class BookController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String returnBook(@RequestParam long bookId, @RequestParam long orderId, ModelMap model) {
 
-        BookOrder bookOrder = bookService.returnBook(bookId, EpamUserDetails.getLoggedUserId(), orderId);
+        BookOrder bookOrder = bookService.returnBook(bookId, UserPrincipal.getLoggedUserId(), orderId);
         model.put("book", bookOrder.getBook());
 
         return "books/bookReturned";
@@ -134,7 +134,7 @@ public class BookController {
     @RequestMapping(value = "/feedback", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_USER')")
     public String feedback(@RequestParam long bookId, @RequestParam String message, ModelMap model) {
-        final long userId = EpamUserDetails.getLoggedUserId();
+        final long userId = UserPrincipal.getLoggedUserId();
         bookService.feedback(userId, bookId, message);
         prepareBookDetail(userId, bookId, model);
         return "books/bookDetails";
@@ -143,28 +143,28 @@ public class BookController {
     @RequestMapping(value = "/evaluate", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_USER')")
     public void evaluate(@RequestParam int rateValue, @RequestParam int bookId, ModelMap model) {
-        final long userId = EpamUserDetails.getLoggedUserId();
+        final long userId = UserPrincipal.getLoggedUserId();
         bookService.evaluateBook(userId, bookId, rateValue);
     }
 
     @RequestMapping(value = "/addFavorite", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_USER')")
     public void addFavorite(@RequestParam int bookId, ModelMap model) {
-        final long userId = EpamUserDetails.getLoggedUserId();
+        final long userId = UserPrincipal.getLoggedUserId();
         bookService.addToFavorites(userId, bookId);
     }
 
     @RequestMapping(value = "/removeFavorite", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_USER')")
     public void removeFavorite(@RequestParam int bookId, ModelMap model) {
-        final long userId = EpamUserDetails.getLoggedUserId();
+        final long userId = UserPrincipal.getLoggedUserId();
         bookService.removeFromFavorites(userId, bookId);
     }
 
     @RequestMapping(value = "/getFavorites", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_USER')")
     public void getFavorites(ModelMap model) {
-        final long userId = EpamUserDetails.getLoggedUserId();
+        final long userId = UserPrincipal.getLoggedUserId();
         bookService.getFavorites(userId);
     }
 

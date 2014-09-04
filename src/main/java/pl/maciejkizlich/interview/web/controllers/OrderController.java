@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.maciejkizlich.interview.persistence.model.BookOrder;
 import pl.maciejkizlich.interview.persistence.model.BookOrderStatus;
-import pl.maciejkizlich.interview.security.EpamUserDetails;
+import pl.maciejkizlich.interview.security.UserPrincipal;
 import pl.maciejkizlich.interview.service.OrderService;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class OrderController {
     	allowedStatuses.add(BookOrderStatus.RESERVED);
     	allowedStatuses.add(BookOrderStatus.BORROWED);
     	
-    	Collection<BookOrder> orders = orderService.findByUserAndGivenStatuses(EpamUserDetails.getLoggedUserId(), allowedStatuses);
+    	Collection<BookOrder> orders = orderService.findByUserAndGivenStatuses(UserPrincipal.getLoggedUserId(), allowedStatuses);
         model.put("orders", orders);
 
         return "orders/manage";
