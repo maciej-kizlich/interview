@@ -12,7 +12,7 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 public class SystemPropertiesUtils extends PropertyPlaceholderConfigurer {
 	private static Map<String, String> propertiesMap;
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "deprecation" })
 	@Override
 	protected void processProperties(
 			ConfigurableListableBeanFactory beanFactory, Properties props)

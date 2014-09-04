@@ -25,7 +25,7 @@ public class UserRepositoryImpl extends AbstractModelRepository<User> implements
 
     @Override
     public User findUserByLogin(String login) {
-        Query query = em.createQuery("SELECT u FROM Users u WHERE u.login = :login");
+        Query query = em.createQuery("SELECT u FROM User u WHERE u.username = :login");
         query.setParameter("login", login);
         return JpaResultHelper.getSingleResultOrNull(query);
     }

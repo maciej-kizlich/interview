@@ -11,7 +11,7 @@ import org.springframework.security.authentication.event.AuthenticationSuccessEv
 
 import pl.maciejkizlich.interview.persistence.dao.UserRepository;
 import pl.maciejkizlich.interview.persistence.model.User;
-import pl.maciejkizlich.interview.security.EpamUserDetails;
+import pl.maciejkizlich.interview.security.UserPrincipal;
 
 public class ApplicationListenerBean implements ApplicationListener<ApplicationEvent> {
 
@@ -24,9 +24,8 @@ public class ApplicationListenerBean implements ApplicationListener<ApplicationE
 		if (event instanceof AuthenticationSuccessEvent) {
 			AuthenticationSuccessEvent authenticationEvent = (AuthenticationSuccessEvent) event;
 			
-			EpamUserDetails principal = (EpamUserDetails) authenticationEvent.getAuthentication()
-					.getPrincipal();
-
+			UserPrincipal principal = (UserPrincipal) authenticationEvent.getAuthentication().getPrincipal();
+			
 			User user = userRepository.findById(principal.getUserId());
 			user.setLastLoginDate(new Date());
 			userRepository.save(user);
