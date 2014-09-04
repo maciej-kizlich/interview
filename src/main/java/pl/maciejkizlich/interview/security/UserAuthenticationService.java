@@ -19,38 +19,32 @@ public class UserAuthenticationService implements UserDetailsService {
 	private UserRepository userRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String username)
-			throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		if (null == username) {
-			throw new UsernameNotFoundException("User for username " + username
-					+ "was not found.");
+			throw new UsernameNotFoundException("User for username " + username + "was not found.");
 		}
 
 		User user = userRepository.findUserByLogin(username);
 
 		if (null == user) {
-			throw new UsernameNotFoundException("User for username " + username
-					+ "was not found.");
+			throw new UsernameNotFoundException("User for username " + username + "was not found.");
 		}
 
 		Set<Authority> permissions = user.getAuthorities();
 
 		if (permissions.isEmpty()) {
-			throw new UsernameNotFoundException(username
-					+ "has no permissions.");
+			throw new UsernameNotFoundException(username + "has no permissions.");
 
 		}
 
 		Set<SimpleGrantedAuthority> authorities = new HashSet<SimpleGrantedAuthority>();
 
 		for (Authority permission : permissions) {
-			authorities.add(new SimpleGrantedAuthority(permission
-					.getAuthority()));
+			authorities.add(new SimpleGrantedAuthority(permission.getAuthority()));
 
 		}
 
-		return new UserPrincipal(user.getUsername(), user.getPassword(), true,
-				true, true, true, authorities, user.getId());
+		return new UserPrincipal(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, true, authorities, user.getId());
 	}
 }

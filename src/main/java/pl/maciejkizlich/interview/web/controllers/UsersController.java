@@ -25,71 +25,71 @@ import pl.maciejkizlich.interview.service.UserService;
 @Controller
 @RequestMapping("/user")
 public class UsersController {
-	
+
 	@Autowired
-    private UserService userService;
+	private UserService userService;
 
-    @Autowired
-    private BookService bookService;
+	@Autowired
+	private BookService bookService;
 
-    @RequestMapping(value = "/usersList", method = RequestMethod.GET)
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String listUsers(Map<String, Object> model) {
+	@RequestMapping(value = "/usersList", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public String listUsers(Map<String, Object> model) {
 
-      UsersList users = new UsersList();
-      users.getUsersList().addAll(userService.findAllUsers());
-      model.put("users", users);
-      return "user/usersList";
-    	
-    }
-    
-    @RequestMapping(value = "/showDetails/{userId}", method = RequestMethod.GET)
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String showUserDetails(@PathVariable(value = "userId") Long userId, ModelMap model) {
-        prepareProfile(userId, model);
-        return "user/userDetails";
-    }
+		UsersList users = new UsersList();
+		users.getUsersList().addAll(userService.findAllUsers());
+		model.put("users", users);
+		return "user/usersList";
 
-    @RequestMapping(value = "/myProfile", method = RequestMethod.GET)
-    @PreAuthorize("hasRole('ROLE_USER')")
-    public String myProfile(ModelMap model) {
-        final long userId = UserPrincipal.getLoggedUserId();
-        prepareProfile(userId, model);
-        return "user/userDetails";
-    }
+	}
 
-    private void prepareProfile(long userId, ModelMap model) {
-        assert model != null;
-        User user = userService.findUser(userId);
-        model.put("user", user);
+	@RequestMapping(value = "/showDetails/{userId}", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public String showUserDetails(@PathVariable(value = "userId") Long userId, ModelMap model) {
+		prepareProfile(userId, model);
+		return "user/userDetails";
+	}
 
-        List<BookFeedback> bookFeedbackList = userService.findUserFeedback(userId);
-        model.put("feedback", bookFeedbackList);
+	@RequestMapping(value = "/myProfile", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_USER')")
+	public String myProfile(ModelMap model) {
+		final long userId = UserPrincipal.getLoggedUserId();
+		prepareProfile(userId, model);
+		return "user/userDetails";
+	}
 
-        Collection<BookFavorite> favorites = bookService.getFavorites(userId);
-        model.put("favorites", favorites);
-    }
-    
-    @RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String editUser(@PathVariable(value = "userId") Long userId, Map<String, Object> model) {
-    	
-      User user = userService.findUser(userId);
+	private void prepareProfile(long userId, ModelMap model) {
+		assert model != null;
+		User user = userService.findUser(userId);
+		model.put("user", user);
 
-      model.put("user", user);
-      
-      return "user/userEdit";
-    }
-    
+		List<BookFeedback> bookFeedbackList = userService.findUserFeedback(userId);
+		model.put("feedback", bookFeedbackList);
+
+		Collection<BookFavorite> favorites = bookService.getFavorites(userId);
+		model.put("favorites", favorites);
+	}
+
+	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public String editUser(@PathVariable(value = "userId") Long userId, Map<String, Object> model) {
+
+		User user = userService.findUser(userId);
+
+		model.put("user", user);
+
+		return "user/userEdit";
+	}
+
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String editBook(@ModelAttribute("user") User user, @RequestParam String[] stringAuthorities) {
-        if (user.getId() != null) {
-        	userService.updateUser(user, stringAuthorities);
-        } else {
-        	userService.registerUser(user);
-        }
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public String editBook(@ModelAttribute("user") User user, @RequestParam String[] stringAuthorities) {
+		if (user.getId() != null) {
+			userService.updateUser(user, stringAuthorities);
+		} else {
+			userService.registerUser(user);
+		}
 
-        return "redirect:/user/usersList";
-    }
+		return "redirect:/user/usersList";
+	}
 }
