@@ -26,7 +26,9 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate
 public class User implements Model {
 
-    @Id
+	private static final long serialVersionUID = -7787344007770946108L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -38,10 +40,6 @@ public class User implements Model {
 
     private Date lastLoginDate;
 
-    /**
-     * The repeatedPassword field is only used for password verification when registering new users. It does
-     * not belong to the model.
-     */
     @Transient
     private String repeatedPassword;
 
@@ -58,6 +56,9 @@ public class User implements Model {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     Set<BookOrder> bookOrders = new HashSet<>();
+    
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    Set<Question> questions = new HashSet<>();
 
     public void addAuthority(Authority authoritiy) {
         this.authorities.add(authoritiy);
