@@ -10,6 +10,28 @@ DROP TABLE IF EXISTS tag;
 DROP TABLE IF EXISTS library_settings;
 DROP TABLE IF EXISTS async_jobs_errors;
 
+DROP TABLE IF EXISTS t_answers;
+DROP TABLE IF EXISTS t_questions;
+DROP TABLE IF EXISTS t_companies;
+
+CREATE TABLE t_questions (
+  id SERIAL PRIMARY KEY,
+  question TEXT,
+  position VARCHAR(255),
+  ask_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE t_companies (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255)
+);
+
+CREATE TABLE t_answers (
+  id SERIAL PRIMARY KEY,
+  answer TEXT,
+  rating INTEGER,
+  answer_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 CREATE TABLE book (
   id SERIAL PRIMARY KEY,
