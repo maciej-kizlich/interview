@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.maciejkizlich.interview.persistence.model.LibraryConfig;
-import pl.maciejkizlich.interview.service.AdminService;
+import pl.maciejkizlich.interview.services.AdminService;
 
 @Controller
 @RequestMapping("/admin")

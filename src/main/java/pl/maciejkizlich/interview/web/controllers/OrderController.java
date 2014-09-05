@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.maciejkizlich.interview.persistence.model.BookOrder;
 import pl.maciejkizlich.interview.persistence.model.BookOrderStatus;
 import pl.maciejkizlich.interview.security.UserPrincipal;
-import pl.maciejkizlich.interview.service.OrderService;
+import pl.maciejkizlich.interview.services.OrderService;
 
 import java.util.ArrayList;
 import java.util.Collection;

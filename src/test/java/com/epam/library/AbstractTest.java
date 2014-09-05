@@ -13,8 +13,8 @@ import pl.maciejkizlich.interview.persistence.dao.BookOrderRepository;
 import pl.maciejkizlich.interview.persistence.dao.BookRepository;
 import pl.maciejkizlich.interview.persistence.dao.TagRepository;
 import pl.maciejkizlich.interview.persistence.dao.UserRepository;
-import pl.maciejkizlich.interview.service.BookService;
-import pl.maciejkizlich.interview.service.UserService;
+import pl.maciejkizlich.interview.services.BookService;
+import pl.maciejkizlich.interview.services.UserService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

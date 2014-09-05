@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import pl.maciejkizlich.interview.persistence.model.BookFavorite;
-import pl.maciejkizlich.interview.service.BookService;
+import pl.maciejkizlich.interview.services.BookService;
 import static com.epam.library.TestData.*;
 
 /**

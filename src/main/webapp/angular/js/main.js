@@ -1,6 +1,6 @@
 var app = angular.module("app", []);
 
-app.controller("Login", function($scope, $http, transformRequestAsFormPost) {
+app.controller("Login", function($scope, $http, $location, transformRequestAsFormPost) {
 
 	$scope.cfdump = "";
 
@@ -16,8 +16,8 @@ app.controller("Login", function($scope, $http, transformRequestAsFormPost) {
 	});
 
 	request.success(function(html) {
+		window.location = "/interview/orders/allOrders";
 		$scope.cfdump = html;
-
 	});
 }
 

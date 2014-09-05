@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pl.maciejkizlich.interview.persistence.model.Book;
 import pl.maciejkizlich.interview.persistence.model.BookSearch;
 import pl.maciejkizlich.interview.persistence.model.Books;
-import pl.maciejkizlich.interview.service.BookService;
+import pl.maciejkizlich.interview.services.BookService;
 
 import java.util.Map;
 

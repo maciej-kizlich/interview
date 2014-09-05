@@ -6,6 +6,8 @@
 			http://www.springframework.org/schema/security
 			http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
+    <http pattern="/angular/**" security="none"/> <!-- for testing purposes -->
+
     <http pattern="/resources/css/**" security="none"/>
     <http pattern="/user/login" security="none"/>
     <http pattern="/favicon.ico" security="none" />
@@ -24,10 +26,7 @@
                 username-parameter="username"
                 password-parameter="password"/>
         <logout logout-success-url="/user/login?logout"/>
-        <!-- enable csrf protection -->
-       <!-- <csrf/>-->
     </http>
-
 
     <beans:bean id="simpleUrlAuthenticationSuccessHandler"
                 class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">

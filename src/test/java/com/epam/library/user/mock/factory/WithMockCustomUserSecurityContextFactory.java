@@ -12,6 +12,7 @@ import org.springframework.security.test.context.support.WithSecurityContextFact
 import org.springframework.util.StringUtils;
 
 import pl.maciejkizlich.interview.security.EpamUserDetails;
+import pl.maciejkizlich.interview.security.UserPrincipal;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -33,8 +34,8 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
         String[] roleStrings = annotatedUser.roles();
         List<GrantedAuthority> authorities = ExtendedAuthorityUtils.stringArrayToAuthorityList(roleStrings);
 
-        EpamUserDetails principal =
-                new EpamUserDetails(username, "123456", authorities, annotatedUser.id());
+        UserPrincipal principal =
+                new UserPrincipal(username, "123456", authorities, annotatedUser.id());
         Authentication auth =
                 new UsernamePasswordAuthenticationToken(principal, principal.getPassword(), principal.getAuthorities());
         context.setAuthentication(auth);

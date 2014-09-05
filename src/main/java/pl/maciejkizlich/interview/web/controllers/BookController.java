@@ -22,7 +22,7 @@ import pl.maciejkizlich.interview.persistence.model.BookPopularity;
 import pl.maciejkizlich.interview.persistence.model.BookSearch;
 import pl.maciejkizlich.interview.persistence.model.Books;
 import pl.maciejkizlich.interview.security.UserPrincipal;
-import pl.maciejkizlich.interview.service.BookService;
+import pl.maciejkizlich.interview.services.BookService;
 
 @Controller
 @RequestMapping("/books")

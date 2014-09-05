@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import pl.maciejkizlich.interview.persistence.model.Book;
 import pl.maciejkizlich.interview.persistence.model.BookOrder;
-import pl.maciejkizlich.interview.service.BookService;
+import pl.maciejkizlich.interview.services.BookService;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

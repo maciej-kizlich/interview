@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -33,6 +34,9 @@ public class Answer implements Model {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Question question;
 
+	@OneToOne
+	private User user;
+	
 	public Long getId() {
 		return id;
 	}
@@ -63,6 +67,14 @@ public class Answer implements Model {
 
 	public void setAnswerDate(Date answerDate) {
 		this.answerDate = answerDate;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

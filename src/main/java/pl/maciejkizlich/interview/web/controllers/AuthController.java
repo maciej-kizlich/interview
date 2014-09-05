@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import pl.maciejkizlich.interview.persistence.model.User;
-import pl.maciejkizlich.interview.service.UserService;
+import pl.maciejkizlich.interview.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 

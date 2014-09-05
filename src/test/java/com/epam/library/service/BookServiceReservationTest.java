@@ -12,7 +12,7 @@ import pl.maciejkizlich.interview.persistence.model.Book;
 import pl.maciejkizlich.interview.persistence.model.BookOrder;
 import pl.maciejkizlich.interview.persistence.model.BookOrderStatus;
 import pl.maciejkizlich.interview.persistence.model.User;
-import pl.maciejkizlich.interview.service.BookServiceImpl;
+import pl.maciejkizlich.interview.services.BookServiceImpl;
 
 import com.epam.library.AbstractTest;
 import com.epam.library.TestData;

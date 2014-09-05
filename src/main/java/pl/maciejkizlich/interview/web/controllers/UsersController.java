@@ -19,8 +19,8 @@ import pl.maciejkizlich.interview.persistence.model.BookFeedback;
 import pl.maciejkizlich.interview.persistence.model.User;
 import pl.maciejkizlich.interview.persistence.model.UsersList;
 import pl.maciejkizlich.interview.security.UserPrincipal;
-import pl.maciejkizlich.interview.service.BookService;
-import pl.maciejkizlich.interview.service.UserService;
+import pl.maciejkizlich.interview.services.BookService;
+import pl.maciejkizlich.interview.services.UserService;
 
 @Controller
 @RequestMapping("/user")

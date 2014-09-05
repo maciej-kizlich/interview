@@ -1,4 +1,4 @@
-package pl.maciejkizlich.interview.service;
+package pl.maciejkizlich.interview.services;
 
 import java.util.Collection;
 import java.util.Date;

@@ -18,7 +18,9 @@ CREATE TABLE t_questions (
   id SERIAL PRIMARY KEY,
   question TEXT,
   position VARCHAR(255),
-  ask_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  ask_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  company_id INTEGER,
+  user_id INTEGER
 );
 
 CREATE TABLE t_companies (
@@ -30,7 +32,9 @@ CREATE TABLE t_answers (
   id SERIAL PRIMARY KEY,
   answer TEXT,
   rating INTEGER,
-  answer_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  answer_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  question_id INTEGER,
+  user_id INTEGER
 );
 
 CREATE TABLE book (

@@ -1,13 +1,51 @@
-INSERT INTO book (title, author, description, removed, available_quantity, image)
-VALUES
-('Przygody Koziołka Matołka' ,'polish guy józek ącki','This book is really great', false, 101, null),
-('комп''ютер для літніх людей', 'some ukrainian  guy', 'краща книга коли-небудь', false, 5, null);
-
 INSERT INTO users (username, password, enabled)
 VALUES
 ('library@epam.com', '$2a$10$yvltV50tLunreFCKsMLqz.22o/kB7wlQ.dXQzaoQi6YmilpZXEGAK', TRUE),
 ('simpleuser@epam.com', '$2a$10$yvltV50tLunreFCKsMLqz.22o/kB7wlQ.dXQzaoQi6YmilpZXEGAK', TRUE),
 ('maciej_kizlich@epam.com', '$2a$10$yvltV50tLunreFCKsMLqz.22o/kB7wlQ.dXQzaoQi6YmilpZXEGAK', TRUE);
+
+INSERT INTO t_companies (id, name) VALUES
+(1, 'Nazwa.pl'), (2, 'EPAM Systems');
+
+INSERT INTO t_questions (id, question, position, ask_date, company_id, user_id) VALUES
+(1, 'Jak dziala Garbage Collector?', 
+ 'Java Senior Software Developer', 
+  CURRENT_TIMESTAMP, 
+  (select id from t_companies where name = 'Nazwa.pl'),
+  (select id from users where username = 'maciej_kizlich@epam.com')
+),
+
+(2, 'Jakie sa roznice miedzy interfejsem a klasa abstrakcyjna?',
+'Software Developer',
+CURRENT_TIMESTAMP,
+  (select id from t_companies where name = 'EPAM Systems'),
+  (select id from users where username='maciej_kizlich@epam.com')
+);
+
+INSERT INTO t_answers (answer, rating, answer_date, question_id, user_id) VALUES
+('normalnie dziala', 
+ 5, 
+ CURRENT_TIMESTAMP, 
+ (select id from t_questions where id = 1),
+ (select id from users where username = 'maciej_kizlich@epam.com')
+),
+('interfejs to interfejst, a klasa abstrakcyjna to klasa abstrakcyjna', 
+ 3, 
+ CURRENT_TIMESTAMP, 
+ (select id from t_questions where id = 2),
+ (select id from users where username = 'maciej_kizlich@epam.com')
+),
+('interfejs jest lepszy', 
+ 3, 
+ CURRENT_TIMESTAMP, 
+ (select id from t_questions where id = 2),
+ (select id from users where username = 'library@epam.com')
+);
+
+INSERT INTO book (title, author, description, removed, available_quantity, image)
+VALUES
+('Przygody Koziołka Matołka' ,'polish guy józek ącki','This book is really great', false, 101, null),
+('комп''ютер для літніх людей', 'some ukrainian  guy', 'краща книга коли-небудь', false, 5, null);
 
 
 INSERT INTO authority (id, authority )

@@ -4,10 +4,10 @@ import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import pl.maciejkizlich.interview.service.AdminService;
-import pl.maciejkizlich.interview.service.BookService;
-import pl.maciejkizlich.interview.service.OrderService;
-import pl.maciejkizlich.interview.service.UserService;
+import pl.maciejkizlich.interview.services.AdminService;
+import pl.maciejkizlich.interview.services.BookService;
+import pl.maciejkizlich.interview.services.OrderService;
+import pl.maciejkizlich.interview.services.UserService;
 
 @Configuration
 class MockServicesConfig {
