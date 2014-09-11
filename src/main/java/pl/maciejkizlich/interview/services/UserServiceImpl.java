@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.maciejkizlich.interview.mail.MailProvider;
 import pl.maciejkizlich.interview.mail.MailerConfig;
 import pl.maciejkizlich.interview.mail.templates.EMAIL_TEMPLATES;
-import pl.maciejkizlich.interview.persistence.dao.FeedbackRepository;
 import pl.maciejkizlich.interview.persistence.dao.UserRepository;
 import pl.maciejkizlich.interview.persistence.model.Authority;
-import pl.maciejkizlich.interview.persistence.model.BookFeedback;
 import pl.maciejkizlich.interview.persistence.model.User;
 import pl.maciejkizlich.interview.persistence.model.UserMessage;
 import pl.maciejkizlich.interview.persistence.model.UserRole;
@@ -33,9 +30,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private FeedbackRepository feedbackRepository;
-    
     @Autowired
     private TimeProvider timeProvider;
     
@@ -96,12 +90,6 @@ public class UserServiceImpl implements UserService {
 
 		userRepository.save(user);
 	}
-
-    @Override
-    public List<BookFeedback> findUserFeedback(Long userId) {
-        List<BookFeedback> feedback = feedbackRepository.getByUserId(userId);
-        return feedback;
-    }
 
     private void attachAutorities(User user, String[] stringAuthorities) {
 		Collection<Authority> userAuthorities = userRepository.findAuthorities(

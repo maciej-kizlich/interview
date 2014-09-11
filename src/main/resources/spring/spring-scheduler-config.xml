@@ -19,7 +19,7 @@
 <context:property-placeholder location="classpath:properties/jobs.properties" />
 
 <bean id="cronJobsBeanPostProcessor" class="pl.maciejkizlich.interview.spring.postprocessors.CronJobsBeanPostProcessor" />
-
+<!-- 
 <bean id="remindUserOfBookReturnDate" class="pl.maciejkizlich.interview.scheduler.jobs.RemindUserOfBookReturnDateJob"/>
 <bean id="remindUserOfBookReturnDateAfterOrderExpires" class="pl.maciejkizlich.interview.scheduler.jobs.RemindUserOfBookReturnDateAfterOrderExpires"/>
 <bean id="remindUserOfBookReturnOnDayOfOrderExpiry" class="pl.maciejkizlich.interview.scheduler.jobs.RemindUserOfBookReturnOnDayOfOrderExpiry"/>
@@ -40,5 +40,5 @@
 <task:scheduled-tasks>
 	<task:scheduled ref="remindUserOfBookReturnOnDayOfOrderExpiry" method="initJob" cron="${remind.user.of.book.return.today}" />
 </task:scheduled-tasks>
-
+-->
 </beans>

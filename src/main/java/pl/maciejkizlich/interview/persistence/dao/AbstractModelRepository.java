@@ -12,10 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pl.maciejkizlich.interview.persistence.model.Model;
 import pl.maciejkizlich.interview.utils.TimeProvider;
 
-/**
- * Created by Denis_Ivanchenko on 7/18/2014.
- */
-
 public abstract class AbstractModelRepository<M extends Model> implements ModelRepository<M> {
 
 	@Autowired

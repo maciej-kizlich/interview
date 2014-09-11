@@ -6,8 +6,6 @@
 			http://www.springframework.org/schema/security
 			http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-    <http pattern="/angular/**" security="none"/> <!-- for testing purposes -->
-
     <http pattern="/resources/css/**" security="none"/>
     <http pattern="/resources/image/**" security="none"/>
     <http pattern="/favicon.ico" security="none" />
@@ -32,8 +30,4 @@
         <beans:property name="defaultTargetUrl" value="/"/>
         <beans:property name="targetUrlParameter" value="redirect"/>
     </beans:bean>
-<!-- <beans:bean id="doNothingEntryPoint" class="pl.maciejkizlich.interview.utils.DoNothingEntryPoint" />
-
-<http entry-point-ref="doNothingEntryPoint" use-expressions="true" >
--->
 </beans:beans>

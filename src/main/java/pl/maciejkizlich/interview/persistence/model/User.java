@@ -55,9 +55,6 @@ public class User implements Model {
     Set<Authority> authorities = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-    Set<BookOrder> bookOrders = new HashSet<>();
-    
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     Set<Question> questions = new HashSet<>();
 
     public void addAuthority(Authority authoritiy) {

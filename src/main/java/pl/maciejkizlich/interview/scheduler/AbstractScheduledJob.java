@@ -13,8 +13,6 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import pl.maciejkizlich.interview.mail.MailProvider;
 import pl.maciejkizlich.interview.persistence.dao.AdminRepository;
-import pl.maciejkizlich.interview.persistence.dao.BookOrderRepository;
-import pl.maciejkizlich.interview.persistence.dao.BookRepository;
 import pl.maciejkizlich.interview.persistence.dao.UserRepository;
 import pl.maciejkizlich.interview.persistence.model.AsyncJobError;
 import pl.maciejkizlich.interview.utils.TimeProvider;
@@ -23,16 +21,10 @@ import pl.maciejkizlich.interview.utils.TimeProvider;
 public abstract class AbstractScheduledJob<DATASOURCE_TYPE> {
 
 	@Autowired
-	protected BookOrderRepository bookOrderRepository;
-
-	@Autowired
 	protected UserRepository userRepository;
 
 	@Autowired
 	protected AdminRepository adminRepository;
-
-	@Autowired
-	protected BookRepository bookRepository;
 
 	@Autowired
 	protected TimeProvider timeProvider;

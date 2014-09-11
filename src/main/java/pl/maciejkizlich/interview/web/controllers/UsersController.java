@@ -1,7 +1,6 @@
 package pl.maciejkizlich.interview.web.controllers;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import pl.maciejkizlich.interview.persistence.model.BookFavorite;
-import pl.maciejkizlich.interview.persistence.model.BookFeedback;
 import pl.maciejkizlich.interview.persistence.model.User;
 import pl.maciejkizlich.interview.persistence.model.UserMessage;
 import pl.maciejkizlich.interview.persistence.model.UsersList;
 import pl.maciejkizlich.interview.security.UserPrincipal;
-import pl.maciejkizlich.interview.services.BookService;
 import pl.maciejkizlich.interview.services.UserService;
 
 @Controller
@@ -30,9 +26,6 @@ public class UsersController {
 
 	@Autowired
 	private UserService userService;
-
-	@Autowired
-	private BookService bookService;
 
 	@RequestMapping(value = "/usersList", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -47,7 +40,8 @@ public class UsersController {
 	@RequestMapping(value = "/showDetails/{userId}", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String showUserDetails(@PathVariable(value = "userId") Long userId, ModelMap model) {
-		prepareProfile(userId, model);
+		User user = userService.findUser(userId);
+		model.put("user", user);
 		return "user/userDetails";
 	}
 
@@ -55,20 +49,9 @@ public class UsersController {
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public String myProfile(ModelMap model) {
 		final long userId = UserPrincipal.getLoggedUserId();
-		prepareProfile(userId, model);
-		return "user/userDetails";
-	}
-
-	private void prepareProfile(long userId, ModelMap model) {
-		assert model != null;
 		User user = userService.findUser(userId);
 		model.put("user", user);
-
-		List<BookFeedback> bookFeedbackList = userService.findUserFeedback(userId);
-		model.put("feedback", bookFeedbackList);
-
-		Collection<BookFavorite> favorites = bookService.getFavorites(userId);
-		model.put("favorites", favorites);
+		return "user/userDetails";
 	}
 
 	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
@@ -84,7 +67,7 @@ public class UsersController {
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public String editBook(@ModelAttribute("user") User user, @RequestParam String[] stringAuthorities) {
+	public String editUser(@ModelAttribute("user") User user, @RequestParam String[] stringAuthorities) {
 		if (user.getId() != null) {
 			userService.updateUser(user, stringAuthorities);
 		} else {
@@ -105,7 +88,7 @@ public class UsersController {
 	}
 	
 	@RequestMapping(value = "/sendMessage", method = RequestMethod.POST)
-	public String sendMessage(@RequestParam String topic, @RequestParam String receiver, @RequestParam String body) {
+	public String sendMessage(@RequestParam String topic, @RequestParam String receiver, @RequestParam String body){
 
 		final long userId = UserPrincipal.getLoggedUserId();
 		
@@ -119,6 +102,5 @@ public class UsersController {
 		final long userId = UserPrincipal.getLoggedUserId();
 		Collection<UserMessage> findAllUserMessages = userService.findAllUserMessages(userId, true);
 		return findAllUserMessages.size();
-
 	}
 }
