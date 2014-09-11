@@ -31,7 +31,7 @@ public abstract class AbstractModelRepository<M extends Model> implements ModelR
     }
 
     @Override
-    public M save(M model) {
+	public M save(M model) {
         return em.merge(model);
     }
 

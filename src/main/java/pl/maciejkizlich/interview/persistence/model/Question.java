@@ -18,7 +18,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 @Entity
-@Table(name="t_answers")
+@Table(name="t_questions")
 public class Question implements Model {
 
 	private static final long serialVersionUID = 2434710080744151658L;
@@ -27,21 +27,25 @@ public class Question implements Model {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Company company;
 
 	private String question;
 	
 	private String position;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private User user;
 
-	@OneToMany(mappedBy = "question")
+	@OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
 	private Set<Answer> answers = new HashSet<Answer>();
 	
 	@Column(name = "ask_date")
 	private Date askDate;
+	
+	public Question(){
+		
+	}
 
 	public Long getId() {
 		return id;

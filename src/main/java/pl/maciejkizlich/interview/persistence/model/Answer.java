@@ -69,6 +69,14 @@ public class Answer implements Model {
 		this.answerDate = answerDate;
 	}
 
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
 	public User getUser() {
 		return user;
 	}

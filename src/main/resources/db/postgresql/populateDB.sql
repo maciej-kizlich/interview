@@ -4,18 +4,18 @@ VALUES
 ('simpleuser@epam.com', '$2a$10$yvltV50tLunreFCKsMLqz.22o/kB7wlQ.dXQzaoQi6YmilpZXEGAK', TRUE),
 ('maciej_kizlich@epam.com', '$2a$10$yvltV50tLunreFCKsMLqz.22o/kB7wlQ.dXQzaoQi6YmilpZXEGAK', TRUE);
 
-INSERT INTO t_companies (id, name) VALUES
-(1, 'Nazwa.pl'), (2, 'EPAM Systems');
+INSERT INTO t_companies (name) VALUES
+('Nazwa.pl'), ('EPAM Systems');
 
-INSERT INTO t_questions (id, question, position, ask_date, company_id, user_id) VALUES
-(1, 'Jak dziala Garbage Collector?', 
+INSERT INTO t_questions (question, position, ask_date, company_id, user_id) VALUES
+('Jak dziala Garbage Collector?', 
  'Java Senior Software Developer', 
   CURRENT_TIMESTAMP, 
   (select id from t_companies where name = 'Nazwa.pl'),
   (select id from users where username = 'maciej_kizlich@epam.com')
 ),
 
-(2, 'Jakie sa roznice miedzy interfejsem a klasa abstrakcyjna?',
+('Jakie sa roznice miedzy interfejsem a klasa abstrakcyjna?',
 'Software Developer',
 CURRENT_TIMESTAMP,
   (select id from t_companies where name = 'EPAM Systems'),
@@ -40,6 +40,14 @@ INSERT INTO t_answers (answer, rating, answer_date, question_id, user_id) VALUES
  CURRENT_TIMESTAMP, 
  (select id from t_questions where id = 2),
  (select id from users where username = 'library@epam.com')
+);
+
+INSERT INTO t_user_messages (topic, message, to_user_id, from_user_id, read) VALUES (
+'hej', 
+'jakie miales pytania w nazwie?', 
+ (select id from users where username = 'maciej_kizlich@epam.com'),
+ (select id from users where username = 'library@epam.com'),
+ false
 );
 
 INSERT INTO book (title, author, description, removed, available_quantity, image)

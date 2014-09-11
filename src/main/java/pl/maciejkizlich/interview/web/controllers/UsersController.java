@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pl.maciejkizlich.interview.persistence.model.BookFavorite;
 import pl.maciejkizlich.interview.persistence.model.BookFeedback;
 import pl.maciejkizlich.interview.persistence.model.User;
+import pl.maciejkizlich.interview.persistence.model.UserMessage;
 import pl.maciejkizlich.interview.persistence.model.UsersList;
 import pl.maciejkizlich.interview.security.UserPrincipal;
 import pl.maciejkizlich.interview.services.BookService;
@@ -40,7 +42,6 @@ public class UsersController {
 		users.getUsersList().addAll(userService.findAllUsers());
 		model.put("users", users);
 		return "user/usersList";
-
 	}
 
 	@RequestMapping(value = "/showDetails/{userId}", method = RequestMethod.GET)
@@ -91,5 +92,33 @@ public class UsersController {
 		}
 
 		return "redirect:/user/usersList";
+	}
+	
+	@RequestMapping(value = "/messages", method = RequestMethod.GET)
+	public String getAllMessages(Map<String, Object> model) {
+		final long userId = UserPrincipal.getLoggedUserId();
+		Collection<UserMessage> findAllUserMessages = userService.findAllUserMessages(userId, false);
+		
+		model.put("messages", findAllUserMessages);
+		return "user/showMessages";
+
+	}
+	
+	@RequestMapping(value = "/sendMessage", method = RequestMethod.POST)
+	public String sendMessage(@RequestParam String topic, @RequestParam String receiver, @RequestParam String body) {
+
+		final long userId = UserPrincipal.getLoggedUserId();
+		
+		userService.saveMessage(topic, receiver, body, userId);
+		
+		return "redirect:/user/messages";
+	}
+	
+	@RequestMapping(value = "/pollMsg", method = RequestMethod.GET)
+	public @ResponseBody Integer pollMsg() {
+		final long userId = UserPrincipal.getLoggedUserId();
+		Collection<UserMessage> findAllUserMessages = userService.findAllUserMessages(userId, true);
+		return findAllUserMessages.size();
+
 	}
 }

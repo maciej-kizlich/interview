@@ -13,6 +13,9 @@ DROP TABLE IF EXISTS async_jobs_errors;
 DROP TABLE IF EXISTS t_answers;
 DROP TABLE IF EXISTS t_questions;
 DROP TABLE IF EXISTS t_companies;
+DROP TABLE IF EXISTS t_user_messages;
+
+--create constraints!
 
 CREATE TABLE t_questions (
   id SERIAL PRIMARY KEY,
@@ -35,6 +38,16 @@ CREATE TABLE t_answers (
   answer_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   question_id INTEGER,
   user_id INTEGER
+);
+
+CREATE TABLE t_user_messages (
+	id SERIAL PRIMARY KEY,
+	topic TEXT,
+	message TEXT,
+	to_user_id INTEGER,
+	from_user_id INTEGER,
+	message_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	read BOOLEAN
 );
 
 CREATE TABLE book (

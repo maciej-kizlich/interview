@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/home")
 public class DefaultController {
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String defaultPage() {
-        return "redirect:/books/list";
+        return "redirect:/home/index";
     }
 
 

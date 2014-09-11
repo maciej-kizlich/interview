@@ -20,6 +20,7 @@ import pl.maciejkizlich.interview.persistence.dao.UserRepository;
 import pl.maciejkizlich.interview.persistence.model.Authority;
 import pl.maciejkizlich.interview.persistence.model.BookFeedback;
 import pl.maciejkizlich.interview.persistence.model.User;
+import pl.maciejkizlich.interview.persistence.model.UserMessage;
 import pl.maciejkizlich.interview.persistence.model.UserRole;
 import pl.maciejkizlich.interview.utils.TimeProvider;
 
@@ -110,5 +111,30 @@ public class UserServiceImpl implements UserService {
         for (Authority auth : userAuthorities) {
             user.addAuthority(auth);
         }
+	}
+
+	@Override
+	public Collection<UserMessage> findAllUserMessages(long userId, boolean read) {
+		return userRepository.findAllUserMessages(userId, read);
+	}
+
+	@Override
+	public void saveMessage(String topic, String receiver, String body, long userId) {
+
+		User sender = userRepository.findById(userId);
+		
+		UserMessage message = new UserMessage();
+		
+		message.setFromUser(sender);
+		message.setMessage(body);
+		message.setMessageDate(timeProvider.getCurrentTime().toDate());
+		message.setTopic(topic);
+		
+		User toUser = userRepository.findUserByLogin(receiver);
+		
+		message.setToUser(toUser);
+		
+		userRepository.saveUserMessage(message);
+		
 	}
 }

@@ -8,6 +8,7 @@
     <title><tiles:insertAttribute name="title"/></title>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
     <meta charset="utf-8">
@@ -36,13 +37,10 @@
     <div id="page">
         <tiles:insertAttribute name="body"/>
     </div>
-
-	  
-
-</div>
-<div id="footer">
-    <tiles:insertAttribute name="footer"/>
-</div>  
-
+<br><br>
+   <div id="footer"> 
+        <tiles:insertAttribute name="footer"/>
+    </div>
+    </div>
 </body>
 </html>

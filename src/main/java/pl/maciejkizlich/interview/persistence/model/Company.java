@@ -26,9 +26,12 @@ public class Company implements Model{
 	
 	private String name;
 	
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "company")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "company")
     Set<Question> questions = new HashSet<>();
 
+    public Company(){
+    }
+    
 	public Long getId() {
 		return id;
 	}

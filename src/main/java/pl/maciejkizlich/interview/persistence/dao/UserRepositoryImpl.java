@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import pl.maciejkizlich.interview.persistence.model.Authority;
 import pl.maciejkizlich.interview.persistence.model.User;
+import pl.maciejkizlich.interview.persistence.model.UserMessage;
 
 
 @Repository
@@ -61,5 +62,28 @@ public class UserRepositoryImpl extends AbstractModelRepository<User> implements
 		Query q = em.createQuery("SELECT user FROM BookOrder o WHERE o.expectedReturnDate <= :date and o.status = 'BORROWED'").setParameter("date", dateInFuture.toDate());
 		
 		return q.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Collection<UserMessage> findAllUserMessages(long userId, boolean read) {
+
+		StringBuilder sb = new StringBuilder("SELECT m FROM UserMessage m WHERE m.toUser.id IN :id ");
+
+		if (read) {
+			sb.append("AND m.read = true");
+		}
+
+		Query query = em.createQuery(sb.toString());
+		query.setParameter("id", userId);
+		return query.getResultList();
+	}
+
+	@Override
+	public void saveUserMessage(UserMessage msg) {
+		if(null == msg.getId()){
+			em.persist(msg);
+		} else {
+			em.merge(msg);
+		}
 	}
 }
